@@ -579,4 +579,75 @@ function getRookMoves(row, col){
     return moves;
 
 }
+function getQueenMoves(row, col){
+
+    const moves = [];
+    const piece = chessBoard[row][col];
+
+    // 8 hướng
+    const directions = [
+        [-1, 0], // lên
+        [ 1, 0], // xuống
+        [ 0,-1], // trái
+        [ 0, 1], // phải
+
+        [-1,-1], // trên trái
+        [-1, 1], // trên phải
+        [ 1,-1], // dưới trái
+        [ 1, 1]  // dưới phải
+    ];
+
+    for(const [dr, dc] of directions){
+
+        let r = row + dr;
+        let c = col + dc;
+
+        while(
+            r >= 0 &&
+            r < 8 &&
+            c >= 0 &&
+            c < 8
+        ){
+
+            const target = chessBoard[r][c];
+
+            // Ô trống
+            if(target === ""){
+
+                moves.push({
+                    row: r,
+                    col: c
+                });
+
+            }
+            else{
+
+                // Quân đối phương
+                if(
+                    (piece === piece.toUpperCase() && target === target.toLowerCase()) ||
+                    (piece === piece.toLowerCase() && target === target.toUpperCase())
+                ){
+
+                    moves.push({
+                        row: r,
+                        col: c
+                    });
+
+                }
+
+                // Gặp quân thì dừng
+                break;
+
+            }
+
+            r += dr;
+            c += dc;
+
+        }
+
+    }
+
+    return moves;
+
+}
 renderBoard();
