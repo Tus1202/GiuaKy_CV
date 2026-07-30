@@ -790,6 +790,7 @@ function getPawnAttackSquares(row, col){
     }
 
     return moves;
+
 }
 function findKing(color){
 
@@ -882,4 +883,6 @@ function isKingInCheck(color){
     );
 
 }
+
+
 renderBoard();
