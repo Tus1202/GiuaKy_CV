@@ -142,11 +142,24 @@ function selectPiece(event){
         );
 
         switchTurn();  
-
+        
         selected = null;
         legalMoves = [];
 
     renderBoard();
+    if(isCheckmate(currentTurn)){
+
+            alert(
+                currentTurn === "white"
+                ? "Chiếu hết! Đen thắng!"
+                : "Chiếu hết! Trắng thắng!"
+            );
+
+        }
+
+        else if(isStalemate(currentTurn)){
+            alert("Hòa (Stalemate)");
+        }   
     return;
 
 }
@@ -920,6 +933,59 @@ function isLegalMove(fromRow, fromCol, toRow, toCol){
     chessBoard[toRow][toCol] = capturedPiece;
 
     return legal;
+
+}
+function hasAnyLegalMove(color){
+
+    for(let row = 0; row < 8; row++){
+
+        for(let col = 0; col < 8; col++){
+
+            const piece = chessBoard[row][col];
+
+            if(piece === ""){
+                continue;
+            }
+
+            const isWhite = piece === piece.toUpperCase();
+
+            if(color === "white" && !isWhite){
+                continue;
+            }
+
+            if(color === "black" && isWhite){
+                continue;
+            }
+
+            const moves = getLegalMoves(row, col);
+
+            if(moves.length > 0){
+                return true;
+            }
+
+        }
+
+    }
+
+    return false;
+
+}
+function isCheckmate(color){
+
+    if(!isKingInCheck(color)){
+        return false;
+    }
+
+    return !hasAnyLegalMove(color);
+
+}
+function isStalemate(color){
+
+    if(isKingInCheck(color)){
+        return false;
+    }
+
+    return !hasAnyLegalMove(color);
 
 }
 
