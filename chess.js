@@ -212,38 +212,53 @@ function getLegalMoves(row, col){
 
     const piece = chessBoard[row][col];
 
+    let moves = [];
+
     switch(piece){
 
         case "P":
-            return getPawnMoves(row, col);
-
         case "p":
-            return getPawnMoves(row, col);
+            moves = getPawnMoves(row, col);
+            break;
+
         case "N":
-            return getKnightMoves(row, col);
         case "n":
-            return getKnightMoves(row, col);
+            moves = getKnightMoves(row, col);
+            break;
+
         case "B":
-            return getBishopMoves(row, col);
         case "b":
-            return getBishopMoves(row, col);
+            moves = getBishopMoves(row, col);
+            break;
+
         case "R":
-            return getRookMoves(row, col);
         case "r":
-            return getRookMoves(row, col);
+            moves = getRookMoves(row, col);
+            break;
+
         case "Q":
-            return getQueenMoves(row, col);
         case "q":
-            return getQueenMoves(row, col);
+            moves = getQueenMoves(row, col);
+            break;
+
         case "K":
-            return getKingMoves(row, col);
         case "k":
-            return getKingMoves(row, col);
+            moves = getKingMoves(row, col);
+            break;
 
         default:
             return [];
 
     }
+
+    return moves.filter(move =>
+        isLegalMove(
+            row,
+            col,
+            move.row,
+            move.col
+        )
+    );
 
 }
 function getPawnMoves(row, col){
@@ -886,6 +901,26 @@ function isKingInCheck(color){
     );
 
 }
+function isLegalMove(fromRow, fromCol, toRow, toCol){
 
+    const movingPiece = chessBoard[fromRow][fromCol];
+    const capturedPiece = chessBoard[toRow][toCol];
+
+    chessBoard[toRow][toCol] = movingPiece;
+    chessBoard[fromRow][fromCol] = "";
+
+    const color =
+        movingPiece === movingPiece.toUpperCase()
+        ? "white"
+        : "black";
+
+    const legal = !isKingInCheck(color);
+
+    chessBoard[fromRow][fromCol] = movingPiece;
+    chessBoard[toRow][toCol] = capturedPiece;
+
+    return legal;
+
+}
 
 renderBoard();
