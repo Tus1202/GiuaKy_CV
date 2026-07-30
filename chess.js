@@ -862,4 +862,24 @@ function isSquareAttacked(row, col, attackerColor){
     return false;
 
 }
+function isKingInCheck(color){
+
+    const king = findKing(color);
+
+    if(!king){
+        return false;
+    }
+
+    const enemy =
+        color === "white"
+        ? "black"
+        : "white";
+
+    return isSquareAttacked(
+        king.row,
+        king.col,
+        enemy
+    );
+
+}
 renderBoard();
