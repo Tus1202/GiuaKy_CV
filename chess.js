@@ -26,3 +26,83 @@ const pieces = {
     n: "images/pieces/blackKnight.png",
     p: "images/pieces/blackPawn.png"
 };
+
+let selected = null;
+let legalMoves = [];
+let currentTurn = "white";
+
+function renderBoard(){
+
+    board.innerHTML = "";
+
+    for(let row = 0; row < 8; row++){
+
+        for(let col = 0; col < 8; col++){
+
+            const square = document.createElement("div");
+
+            square.classList.add("square");
+            square.classList.add((row + col) % 2 === 0 ? "light" : "dark");
+
+            square.dataset.row = row;
+            square.dataset.col = col;
+
+            square.addEventListener("click", selectPiece);
+
+            // Ô đang được chọn
+            if(
+                selected &&
+                selected.row === row &&
+                selected.col === col
+            ){
+                square.classList.add("selected");
+            }
+
+            // Quân cờ
+            const piece = chessBoard[row][col];
+
+            if(piece !== ""){
+
+                const img = document.createElement("img");
+
+                img.src = pieces[piece];
+                img.classList.add("piece");
+                img.draggable = false;
+
+                square.appendChild(img);
+
+            }
+
+            // Ô có thể đi
+            const canMove = legalMoves.some(move =>
+                move.row === row &&
+                move.col === col
+            );
+
+            if(canMove){
+
+                if(chessBoard[row][col] === ""){
+
+                    const dot = document.createElement("div");
+                    dot.classList.add("move-dot");
+                    square.appendChild(dot);
+
+                }else{
+
+                    const ring = document.createElement("div");
+                    ring.classList.add("capture-dot");
+                    square.appendChild(ring);
+
+                }
+
+            }
+
+            board.appendChild(square);
+
+        }
+
+    }
+
+}
+
+renderBoard();
