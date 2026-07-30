@@ -713,4 +713,18 @@ function getKingMoves(row, col){
     return moves;
 
 }
+function movePiece(fromRow, fromCol, toRow, toCol){
+
+    chessBoard[toRow][toCol] = chessBoard[fromRow][fromCol];
+    chessBoard[fromRow][fromCol] = "";
+
+}
+function switchTurn(){
+
+    currentTurn =
+        currentTurn === "white"
+        ? "black"
+        : "white";
+
+}
 renderBoard();
