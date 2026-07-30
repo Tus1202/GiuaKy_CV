@@ -815,4 +815,51 @@ function findKing(color){
     return null;
 
 }
+function isSquareAttacked(row, col, attackerColor){
+
+    for(let r = 0; r < 8; r++){
+
+        for(let c = 0; c < 8; c++){
+
+            const piece = chessBoard[r][c];
+
+            if(piece === ""){
+                continue;
+            }
+
+            const isWhitePiece = piece === piece.toUpperCase();
+
+            // Chỉ xét quân của bên đang tấn công
+            if(
+                attackerColor === "white" &&
+                !isWhitePiece
+            ){
+                continue;
+            }
+
+            if(
+                attackerColor === "black" &&
+                isWhitePiece
+            ){
+                continue;
+            }
+
+            const attacks = getAttackSquares(r, c);
+
+            const canAttack = attacks.some(square =>
+                square.row === row &&
+                square.col === col
+            );
+
+            if(canAttack){
+                return true;
+            }
+
+        }
+
+    }
+
+    return false;
+
+}
 renderBoard();
