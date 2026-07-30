@@ -650,4 +650,67 @@ function getQueenMoves(row, col){
     return moves;
 
 }
+function getKingMoves(row, col){
+
+    const moves = [];
+
+    const piece = chessBoard[row][col];
+
+    const directions = [
+        [-1,-1],
+        [-1, 0],
+        [-1, 1],
+
+        [ 0,-1],
+        [ 0, 1],
+
+        [ 1,-1],
+        [ 1, 0],
+        [ 1, 1]
+    ];
+
+    for(const [dr, dc] of directions){
+
+        const r = row + dr;
+        const c = col + dc;
+
+        // Ngoài bàn cờ
+        if(
+            r < 0 ||
+            r >= 8 ||
+            c < 0 ||
+            c >= 8
+        ){
+            continue;
+        }
+
+        const target = chessBoard[r][c];
+
+        // Ô trống
+        if(target === ""){
+
+            moves.push({
+                row: r,
+                col: c
+            });
+
+        }
+        // Quân đối phương
+        else if(
+            (piece === piece.toUpperCase() && target === target.toLowerCase()) ||
+            (piece === piece.toLowerCase() && target === target.toUpperCase())
+        ){
+
+            moves.push({
+                row: r,
+                col: c
+            });
+
+        }
+
+    }
+
+    return moves;
+
+}
 renderBoard();
