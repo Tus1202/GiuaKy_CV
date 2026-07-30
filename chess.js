@@ -205,5 +205,42 @@ function selectPiece(event){
     renderBoard();
 
 }
+function getLegalMoves(row, col){
 
+    const piece = chessBoard[row][col];
+
+    switch(piece){
+
+        case "P":
+            return getPawnMoves(row, col);
+
+        case "p":
+            return getPawnMoves(row, col);
+        case "N":
+            return getKnightMoves(row, col);
+        case "n":
+            return getKnightMoves(row, col);
+        case "B":
+            return getBishopMoves(row, col);
+        case "b":
+            return getBishopMoves(row, col);
+        case "R":
+            return getRookMoves(row, col);
+        case "r":
+            return getRookMoves(row, col);
+        case "Q":
+            return getQueenMoves(row, col);
+        case "q":
+            return getQueenMoves(row, col);
+        case "K":
+            return getKingMoves(row, col);
+        case "k":
+            return getKingMoves(row, col);
+
+        default:
+            return [];
+
+    }
+
+}
 renderBoard();
