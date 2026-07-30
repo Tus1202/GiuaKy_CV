@@ -727,4 +727,68 @@ function switchTurn(){
         : "white";
 
 }
+function getAttackSquares(row, col){
+
+    const piece = chessBoard[row][col];
+
+    switch(piece){
+
+        case "P":
+        case "p":
+            return getPawnAttackSquares(row, col);
+
+        case "N":
+        case "n":
+            return getKnightMoves(row, col);
+
+        case "B":
+        case "b":
+            return getBishopMoves(row, col);
+
+        case "R":
+        case "r":
+            return getRookMoves(row, col);
+
+        case "Q":
+        case "q":
+            return getQueenMoves(row, col);
+
+        case "K":
+        case "k":
+            return getKingMoves(row, col);
+
+        default:
+            return [];
+
+    }
+
+}
+function getPawnAttackSquares(row, col){
+
+    const moves = [];
+
+    const piece = chessBoard[row][col];
+
+    if(piece === "P"){
+
+        if(row > 0 && col > 0)
+            moves.push({row: row-1, col: col-1});
+
+        if(row > 0 && col < 7)
+            moves.push({row: row-1, col: col+1});
+
+    }
+
+    if(piece === "p"){
+
+        if(row < 7 && col > 0)
+            moves.push({row: row+1, col: col-1});
+
+        if(row < 7 && col < 7)
+            moves.push({row: row+1, col: col+1});
+
+    }
+
+    return moves;
+}
 renderBoard();
