@@ -375,4 +375,77 @@ function getPawnMoves(row, col){
     return moves;
 
 }
+function getKnightMoves(row, col){
+
+    const moves = [];
+
+    const piece = chessBoard[row][col];
+
+    const offsets = [
+        [-2,-1],
+        [-2, 1],
+        [-1,-2],
+        [-1, 2],
+        [ 1,-2],
+        [ 1, 2],
+        [ 2,-1],
+        [ 2, 1]
+    ];
+
+    for(const [dr, dc] of offsets){
+
+        const newRow = row + dr;
+        const newCol = col + dc;
+
+        // Ra ngoài bàn cờ
+        if(
+            newRow < 0 ||
+            newRow >= 8 ||
+            newCol < 0 ||
+            newCol >= 8
+        ){
+            continue;
+        }
+
+        const target = chessBoard[newRow][newCol];
+
+        // Ô trống
+        if(target === ""){
+
+            moves.push({
+                row: newRow,
+                col: newCol
+            });
+
+        }
+        // Mã trắng ăn quân đen
+        else if(
+            piece === piece.toUpperCase() &&
+            target === target.toLowerCase()
+        ){
+
+            moves.push({
+                row: newRow,
+                col: newCol
+            });
+
+        }
+        // Mã đen ăn quân trắng
+        else if(
+            piece === piece.toLowerCase() &&
+            target === target.toUpperCase()
+        ){
+
+            moves.push({
+                row: newRow,
+                col: newCol
+            });
+
+        }
+
+    }
+
+    return moves;
+
+}
 renderBoard();
