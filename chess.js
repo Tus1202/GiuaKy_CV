@@ -513,4 +513,70 @@ function getBishopMoves(row, col){
     return moves;
 
 }
+function getRookMoves(row, col){
+
+    const moves = [];
+    const piece = chessBoard[row][col];
+
+    // 4 hướng: lên, xuống, trái, phải
+    const directions = [
+        [-1, 0], // lên
+        [ 1, 0], // xuống
+        [ 0,-1], // trái
+        [ 0, 1]  // phải
+    ];
+
+    for(const [dr, dc] of directions){
+
+        let r = row + dr;
+        let c = col + dc;
+
+        while(
+            r >= 0 &&
+            r < 8 &&
+            c >= 0 &&
+            c < 8
+        ){
+
+            const target = chessBoard[r][c];
+
+            // Ô trống
+            if(target === ""){
+
+                moves.push({
+                    row: r,
+                    col: c
+                });
+
+            }
+            else{
+
+                // Quân đối phương -> được ăn
+                if(
+                    (piece === piece.toUpperCase() && target === target.toLowerCase()) ||
+                    (piece === piece.toLowerCase() && target === target.toUpperCase())
+                ){
+
+                    moves.push({
+                        row: r,
+                        col: c
+                    });
+
+                }
+
+                // Gặp quân thì dừng theo hướng này
+                break;
+
+            }
+
+            r += dr;
+            c += dc;
+
+        }
+
+    }
+
+    return moves;
+
+}
 renderBoard();
