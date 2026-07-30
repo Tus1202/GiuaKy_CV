@@ -243,4 +243,136 @@ function getLegalMoves(row, col){
     }
 
 }
+function getPawnMoves(row, col){
+
+    const moves = [];
+
+    const piece = chessBoard[row][col];
+
+    // ==================
+    // TỐT TRẮNG
+    // ==================
+    if(piece === "P"){
+
+        // đi 1 ô
+        if(
+            row - 1 >= 0 &&
+            chessBoard[row-1][col] === ""
+        ){
+
+            moves.push({
+                row: row-1,
+                col: col
+            });
+
+            // đi 2 ô khi chưa di chuyển
+            if(
+                row === 6 &&
+                chessBoard[row-2][col] === ""
+            ){
+
+                moves.push({
+                    row: row-2,
+                    col: col
+                });
+
+            }
+
+        }
+
+        // ăn trái
+        if(
+            row-1 >= 0 &&
+            col-1 >= 0 &&
+            chessBoard[row-1][col-1] !== "" &&
+            chessBoard[row-1][col-1] === chessBoard[row-1][col-1].toLowerCase()
+        ){
+
+            moves.push({
+                row: row-1,
+                col: col-1
+            });
+
+        }
+
+        // ăn phải
+        if(
+            row-1 >= 0 &&
+            col+1 < 8 &&
+            chessBoard[row-1][col+1] !== "" &&
+            chessBoard[row-1][col+1] === chessBoard[row-1][col+1].toLowerCase()
+        ){
+
+            moves.push({
+                row: row-1,
+                col: col+1
+            });
+
+        }
+
+    }
+
+    // ==================
+    // TỐT ĐEN
+    // ==================
+
+    if(piece === "p"){
+
+        if(
+            row+1 < 8 &&
+            chessBoard[row+1][col] === ""
+        ){
+
+            moves.push({
+                row: row+1,
+                col: col
+            });
+
+            if(
+                row === 1 &&
+                chessBoard[row+2][col] === ""
+            ){
+
+                moves.push({
+                    row: row+2,
+                    col: col
+                });
+
+            }
+
+        }
+
+        if(
+            row+1 < 8 &&
+            col-1 >=0 &&
+            chessBoard[row+1][col-1] !== "" &&
+            chessBoard[row+1][col-1] === chessBoard[row+1][col-1].toUpperCase()
+        ){
+
+            moves.push({
+                row: row+1,
+                col: col-1
+            });
+
+        }
+
+        if(
+            row+1 < 8 &&
+            col+1 < 8 &&
+            chessBoard[row+1][col+1] !== "" &&
+            chessBoard[row+1][col+1] === chessBoard[row+1][col+1].toUpperCase()
+        ){
+
+            moves.push({
+                row: row+1,
+                col: col+1
+            });
+
+        }
+
+    }
+
+    return moves;
+
+}
 renderBoard();
