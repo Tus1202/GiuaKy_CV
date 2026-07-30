@@ -1,0 +1,46 @@
+.chess-container{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    margin-top:40px;
+
+}
+
+#board{
+
+    width:480px;
+    height:480px;
+
+    display:grid;
+
+    grid-template-columns:repeat(8,1fr);
+    grid-template-rows:repeat(8,1fr);
+
+    border:5px solid #222;
+
+}
+
+.square{
+    position:relative;
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    font-size:48px;
+
+    user-select:none;
+
+}
+.light{
+
+    background:#f0d9b5;
+
+}
+.dark{
+
+    background:#b58863;
+
+}
