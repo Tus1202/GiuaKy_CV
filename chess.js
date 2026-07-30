@@ -791,4 +791,28 @@ function getPawnAttackSquares(row, col){
 
     return moves;
 }
+function findKing(color){
+
+    const king = color === "white" ? "K" : "k";
+
+    for(let row = 0; row < 8; row++){
+
+        for(let col = 0; col < 8; col++){
+
+            if(chessBoard[row][col] === king){
+
+                return {
+                    row,
+                    col
+                };
+
+            }
+
+        }
+
+    }
+
+    return null;
+
+}
 renderBoard();
