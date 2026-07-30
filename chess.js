@@ -104,5 +104,106 @@ function renderBoard(){
     }
 
 }
+function selectPiece(event){
+    
+    const row = Number(event.currentTarget.dataset.row);
+    const col = Number(event.currentTarget.dataset.col);
+
+    const piece = chessBoard[row][col];
+
+    // Đang có quân được chọn
+    if(selected){
+
+        // Click lại chính quân đang chọn -> bỏ chọn
+        if(
+            selected.row === row &&
+            selected.col === col
+        ){
+            selected = null;
+            legalMoves = [];
+
+            renderBoard();
+            return;
+        }
+
+        // Click vào ô hợp lệ -> di chuyển
+        const canMove = legalMoves.some(move =>
+            move.row === row &&
+            move.col === col
+        );
+
+        if(canMove){
+            // Đi thử
+            movePiece(
+                selected.row,
+                selected.col,
+                row,
+                col
+            );
+
+    selected = null;
+    legalMoves = [];
+
+    renderBoard();
+    return;
+}
+
+        // Click vào quân cùng màu -> đổi quân đang chọn
+        if(piece !== ""){
+
+            const sameColor =
+                (currentTurn === "white" && piece === piece.toUpperCase()) ||
+                (currentTurn === "black" && piece === piece.toLowerCase());
+
+            if(sameColor){
+
+                selected = {
+                    row,
+                    col,
+                    piece
+                };
+
+                legalMoves = getLegalMoves(row, col);
+
+                renderBoard();
+                return;
+            }
+
+        }
+
+        // Click chỗ khác -> bỏ chọn
+        selected = null;
+        legalMoves = [];
+
+        renderBoard();
+        return;
+
+    }
+
+    // Chưa chọn quân
+
+    if(piece === ""){
+        return;
+    }
+
+    const correctTurn =
+        (currentTurn === "white" && piece === piece.toUpperCase()) ||
+        (currentTurn === "black" && piece === piece.toLowerCase());
+
+    if(!correctTurn){
+        return;
+    }
+
+    selected = {
+        row,
+        col,
+        piece
+    };
+
+    legalMoves = getLegalMoves(row, col);
+
+    renderBoard();
+
+}
 
 renderBoard();
