@@ -133,19 +133,22 @@ function selectPiece(event){
         );
 
         if(canMove){
-            // Đi thử
+
             movePiece(
                 selected.row,
                 selected.col,
                 row,
                 col
-            );
+        );
 
-    selected = null;
-    legalMoves = [];
+        switchTurn();  
+
+        selected = null;
+        legalMoves = [];
 
     renderBoard();
     return;
+
 }
 
         // Click vào quân cùng màu -> đổi quân đang chọn
