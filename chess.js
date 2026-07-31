@@ -943,6 +943,7 @@ function movePiece(fromRow, fromCol, toRow, toCol){
         chessBoard[0][0] = "";
 
     }
+    promotePawn(toRow, toCol);
 
 
 }
@@ -1182,6 +1183,25 @@ function isStalemate(color){
     }
 
     return !hasAnyLegalMove(color);
+
+}
+function promotePawn(row, col){
+
+    const piece = chessBoard[row][col];
+
+    // Tốt trắng đến hàng 8
+    if(piece === "P" && row === 0){
+
+        chessBoard[row][col] = "Q";
+
+    }
+
+    // Tốt đen đến hàng 1
+    if(piece === "p" && row === 7){
+
+        chessBoard[row][col] = "q";
+
+    }
 
 }
 
