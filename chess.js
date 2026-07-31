@@ -749,7 +749,98 @@ function getKingMoves(row, col){
         }
 
     }
+// TRẮNG - NHẬP THÀNH GẦN
+// e1 -> g1
 
+    if(
+        piece === "K" &&
+        !whiteKingMoved &&
+        !whiteRightRookMoved &&
+        chessBoard[7][7] === "R" &&
+        chessBoard[7][5] === "" &&
+        chessBoard[7][6] === "" &&
+        !isSquareAttacked(7, 4, "black") &&
+        !isSquareAttacked(7, 5, "black") &&
+        !isSquareAttacked(7, 6, "black")
+    ){
+
+        moves.push({
+            row: 7,
+            col: 6
+        });
+
+    }
+
+
+// TRẮNG - NHẬP THÀNH XA
+// e1 -> c1
+
+    if(
+        piece === "K" &&
+        !whiteKingMoved &&
+        !whiteLeftRookMoved &&
+        chessBoard[7][0] === "R" &&
+        chessBoard[7][1] === "" &&
+        chessBoard[7][2] === "" &&
+        chessBoard[7][3] === "" &&
+        !isSquareAttacked(7, 4, "black") &&
+        !isSquareAttacked(7, 3, "black") &&
+        !isSquareAttacked(7, 2, "black")
+    ){
+
+        moves.push({
+            row: 7,
+            col: 2
+        });
+
+    }
+
+
+// ĐEN - NHẬP THÀNH GẦN
+// e8 -> g8
+
+    if(
+        piece === "k" &&
+        !blackKingMoved &&
+        !blackRightRookMoved &&
+        chessBoard[0][7] === "r" &&
+        chessBoard[0][5] === "" &&
+        chessBoard[0][6] === "" &&
+        !isSquareAttacked(0, 4, "white") &&
+        !isSquareAttacked(0, 5, "white") &&
+        !isSquareAttacked(0, 6, "white")
+    ){
+
+        moves.push({
+            row: 0,
+            col: 6
+        });
+
+    }
+
+
+// ĐEN - NHẬP THÀNH XA
+// e8 -> c8
+
+    if(
+        piece === "k" &&
+        !blackKingMoved &&
+        !blackLeftRookMoved &&
+        chessBoard[0][0] === "r" &&
+        chessBoard[0][1] === "" &&
+        chessBoard[0][2] === "" &&
+        chessBoard[0][3] === "" &&
+        !isSquareAttacked(0, 4, "white") &&
+        !isSquareAttacked(0, 3, "white") &&
+        !isSquareAttacked(0, 2, "white")
+    ){
+
+        moves.push({
+            row: 0,
+            col: 2
+        });
+
+    }
     return moves;
 
 }
