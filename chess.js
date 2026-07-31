@@ -31,6 +31,15 @@ let selected = null;
 let legalMoves = [];
 let currentTurn = "white";
 
+let whiteKingMoved = false;
+let blackKingMoved = false;
+
+let whiteLeftRookMoved = false;
+let whiteRightRookMoved = false;
+
+let blackLeftRookMoved = false;
+let blackRightRookMoved = false;
+
 function renderBoard(){
 
     board.innerHTML = "";
@@ -745,9 +754,105 @@ function getKingMoves(row, col){
 
 }
 function movePiece(fromRow, fromCol, toRow, toCol){
+    const piece = chessBoard[fromRow][fromCol];
 
     chessBoard[toRow][toCol] = chessBoard[fromRow][fromCol];
     chessBoard[fromRow][fromCol] = "";
+
+    if(piece === "K"){
+        whiteKingMoved = true;
+    }
+
+    if(piece === "k"){
+        blackKingMoved = true;
+    }
+    if(piece === "R"){
+
+        if(fromRow === 7 && fromCol === 0){
+            whiteLeftRookMoved = true;
+        }
+
+        if(fromRow === 7 && fromCol === 7){
+            whiteRightRookMoved = true;
+        }
+
+    }
+
+    if(piece === "r"){
+
+        if(fromRow === 0 && fromCol === 0){
+            blackLeftRookMoved = true;
+        }
+
+        if(fromRow === 0 && fromCol === 7){
+            blackRightRookMoved = true;
+        }
+
+    }
+     // CASTLING - TRẮNG
+     if(
+        piece === "K" &&
+        fromRow === 7 &&
+        fromCol === 4 &&
+        toRow === 7 &&
+        toCol === 6
+    ){
+
+        // Vua e1 -> g1
+        // Xe h1 -> f1
+
+        chessBoard[7][5] = "R";
+        chessBoard[7][7] = "";
+
+    }
+    if(
+        piece === "K" &&
+        fromRow === 7 &&
+        fromCol === 4 &&
+        toRow === 7 &&
+        toCol === 2
+    ){
+
+        // Vua e1 -> c1
+        // Xe a1 -> d1
+
+        chessBoard[7][3] = "R";
+        chessBoard[7][0] = "";
+
+    }
+    // CASTLING - ĐEN
+     if(
+        piece === "k" &&
+        fromRow === 0 &&
+        fromCol === 4 &&
+        toRow === 0 &&
+        toCol === 6
+    ){
+
+        // Vua e8 -> g8
+        // Xe h8 -> f8
+
+        chessBoard[0][5] = "r";
+        chessBoard[0][7] = "";
+
+    }
+
+    if(
+        piece === "k" &&
+        fromRow === 0 &&
+        fromCol === 4 &&
+        toRow === 0 &&
+        toCol === 2
+    ){
+
+        // Vua e8 -> c8
+        // Xe a8 -> d8
+
+        chessBoard[0][3] = "r";
+        chessBoard[0][0] = "";
+
+    }
+
 
 }
 function switchTurn(){
