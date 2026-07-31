@@ -6,3 +6,4 @@
 
 - https://www.figma.com/design/S1MFpQXkXRqqBlTxPkf8s1/CV?node-id=0-1&t=iPWxThbOv3Yz28zj-1
 
+- https://tus1202.github.io/GiuaKy_CV/
